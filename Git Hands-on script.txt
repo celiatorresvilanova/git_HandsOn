@@ -1,0 +1,69 @@
+############################ CÈLIA TORRES VILANOVA ################################
+
+# EXERCICES GIT HANDS-ON
+
+# Fix the seqClass.py script so that it is able to classify correctly any RNA or DNA sequence.
+
+cd Desktop		            	 # Move to my Desktop
+mkdir git_HandsOn             	 # Create git_HandsOn folder
+ls                            	 # Check that the git_HandsOn folder has been created on the desktop
+cd git_HandsOn                       # Move to git_HandsOn folder
+nano seqClass.py               	 # Create the seqClass.py python script (Add the code provided in HandsOn in SeqClass.py and exit using Ctrl + X and then Y and Enter (To save my changes in the file)
+
+git init                       	 # Initialize a Git repository 
+ls -a                        		 # Check that the git has been created in git_HandsOn folder
+git add seqClass.py            	 # Add seqClass.py file in the stagging area  
+git status                           # Check the status of the changes in seqClass.py
+
+## Is the first time that I make a Git commit and I need to modify the following configuration
+
+git commit -m "Create the seqClass.py script to classify DNA and RNA sequences"  #Commit the changes in seqClass.py
+git config --global user.email "celiatovi@hotmail.com"
+git config --global user.name "Cèlia"
+git commit -m "Create the seqClass.py script to classify DNA and RNA sequences"  #Commit the changes in seqClass.py
+
+## Check if seqClass.py script is working properly using:
+
+python seqClass.py -s AGTG    	 # The sequence is DNA (is working properly)
+python seqClass.py -s ACGUA  		 # The sequence is RNA (is working properly)
+python seqClass.py -s agtg     	 # The sequence is not DNA nor RNA (is not working properly)
+python seqClass.py -s UTUT     	 # The sequence is DNA (is not working properly)
+git status                           # Make sure there is nothing else to commit
+
+nano seqClass.py              	 # I have to perform changes in the script to deal well with lower-case sequences. Add the code provided in HandsOn in SeqClass.py and exit using Ctrl + X and then Y and Enter (To save my changes in the file)
+
+## I add the code provided in HandsOn and exit using Ctrl + X and then Y and Enter (To save my changes in the file). I check if seqClass.py script is working properly using:
+
+python seqClass.py -s agtg           # "The sequence is DNA" (is working properly)
+python seqClass.py -s AGTG           # "The sequence is DNA" (is working properly)
+python seqClass.py -s acgua          # "The sequence is RNA" (is working properly)
+python seqClass.py -s ACGUA          # "The sequence is RNA" (is working properly)
+git diff seqClass.py    		 # Check the differences between the working directory and the staging area
+git add seqClass.py   			 # Add the changes to the staging area 
+git commit -m "Add the line args.seq = args.seq.upper() to seqClass.py script" 		   #Commit the changes in my SeqClass.py
+git log                       	 # Check the commits (are stored chronologically in the repository)
+
+# Make a new branch called fix and move to it
+
+git status                           # Make sure there is nothing else to commit
+git branch                           # Check the branch
+git branch fix				 # Create a new branch called fix
+git checkout fix	            	 # Move to fix branch
+git branch                    	 # Check if I'm in the fix branch (appears in green)
+
+# Merge the fix branch back to master.
+
+nano seqClass.py               	 # Create the seqClass.py python script (Add the code provided in HandsOn in SeqClass.py and exit using Ctrl + X and then Y and Enter (To save my changes in the file)
+git add seqClass.py   			 # Add the changes to the staging area 
+git commit -m "Add the identification of motifs to seqClass.py script" 		   #Commit the changes in my SeqClass.py
+
+# Stage and commit the changes on master in your local repository
+
+git checkout master                  # Move to master branch
+git merge fix                        # Merge fix branch back to master
+git log                              # Check that I have the same commits in fix and master branches
+
+# Push your commits on master to your GitHub repository.
+
+git remote add origin https://github.com/username/git_HandsOn
+git push -u origin master
