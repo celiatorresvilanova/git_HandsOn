@@ -1,0 +1,44 @@
+############################ CÈLIA TORRES VILANOVA ################################
+
+# EXERCICE DOCKER
+
+# Build a Docker image for the seqClass.py script written during the Git hands-on. Make sure you can run the script within the corresponding Docker container and upload the image to DockerHub.
+
+## I have to create a document called Dockerfile in the git_HandsOn folder with the following code:
+
+	# Set the base image to Python 3.9
+		FROM python:3.9
+
+	# Add custom label
+		LABEL maintainer "celiatorresvilanova <celiatovi@hotmail.com>" \
+      	version "0.1" \
+      	description "Docker image for seqClass.py script"
+
+	# Set the working directory in the container to /app
+		WORKDIR /app
+
+	# Copy the current directory contents into the container at /app
+		COPY . /app
+
+	# Expose port 5000 for the Flask app
+		EXPOSE 5000
+
+	# Set the default command to run when a container is started
+		CMD ["python", "app.py"]
+
+
+sudo docker build -t seqclass .              # Build a docker image using my Dockerfile
+
+sudo docker run seqclass ls		            # Create a container from my image and list the files inside it
+
+sudo docker run --entrypoint python seqclass seqClass.py -s ATCG  # This will run the seqclass.py script within the container. The output is "The sequence is DNA"
+
+sudo docker run --entrypoint python seqclass seqClass.py -s AUCG  # This will run the seqclass.py script within the container. The output is "The sequence is RNA"
+
+sudo docker run --entrypoint python seqclass seqClass.py -s atcg  # This will run the seqclass.py script within the container. The output is "The sequence is DNA"
+
+sudo docker run --entrypoint python seqclass seqClass.py -s aucg  # This will run the seqclass.py script within the container. The output is "The sequence is RNA"
+
+sudo docker login                              # Login to DockerHub 
+
+sudo docker push celiatorresvilanova/seqclass  # Upload the image to DockerHub
